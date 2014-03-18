@@ -82,7 +82,7 @@ namespace RedditVisualizer.Views
 
 		private void GoToButton_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start(ViewModel.FeaturedPost.Data.Permalink);
+			Process.Start("http://www.reddit.com" + ViewModel.FeaturedPost.Data.Permalink);
 		}
 
 		private void PreviousImageButton_Click(object sender, RoutedEventArgs e)
