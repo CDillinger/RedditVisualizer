@@ -9,29 +9,49 @@ namespace RedditVisualizer.Helpers
 {
 	class Posts
 	{
-		public static async Task<Tuple<List<RedditPost>, string, string>> FindAllControversialPostsAsync(string subreddit)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialPostsAsync(string subreddit)
 		{
-			return await FindAllPostsAsync(subreddit, "/controversial.json");
+			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/controversial.json");
 		}
 
-		public static async Task<Tuple<List<RedditPost>, string, string>> FindAllHotPostsAsync(string subreddit)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialPostsAsync(string subreddit, int countViewed, string after)
 		{
-			return await FindAllPostsAsync(subreddit, "/hot.json");
+			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/controversial.json?count={1}&after={2}", subreddit, countViewed, after));
 		}
 
-		public static async Task<Tuple<List<RedditPost>, string, string>> FindAllNewPostsAsync(string subreddit)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindHotPostsAsync(string subreddit)
 		{
-			return await FindAllPostsAsync(subreddit, "/new.json");
+			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/hot.json");
 		}
 
-		public static async Task<Tuple<List<RedditPost>, string, string>> FindAllTopPostsAsync(string subreddit)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindHotPostsAsync(string subreddit, int countViewed, string after)
 		{
-			return await FindAllPostsAsync(subreddit, "/top.json");
+			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/hot.json?count={1}&after={2}", subreddit, countViewed, after));
 		}
 
-		private static async Task<Tuple<List<RedditPost>, string, string>> FindAllPostsAsync(string subreddit, string suffix)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindNewPostsAsync(string subreddit)
 		{
-			string response = await GetResponse("http://www.reddit.com/" + subreddit + suffix);
+			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/new.json");
+		}
+
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindNewPostsAsync(string subreddit, int countViewed, string after)
+		{
+			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/new.json?count={1}&after={2}", subreddit, countViewed, after));
+		}
+
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindTopPostsAsync(string subreddit)
+		{
+			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/top.json");
+		}
+
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindTopPostsAsync(string subreddit, int countViewed, string after)
+		{
+			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/top.json?count={1}&after={2}", subreddit, countViewed, after));
+		}
+
+		private static async Task<Tuple<List<RedditPost>, string, string>> FindPostsAsync(string url)
+		{
+			string response = await GetResponse(url);
 
 			string before = "", after = "";
 			string beforeSubstring = response.Substring(response.IndexOf("\"before\": ") + 10);
@@ -70,7 +90,7 @@ namespace RedditVisualizer.Helpers
 			var httpClient = new HttpClient();
 			var request = new HttpRequestMessage(HttpMethod.Get, url);
 			request.Headers.Add("KeepAlive", "true");
-			request.Headers.Add("User-Agent", "TestySHIT");
+			request.Headers.Add("User-Agent", "RedditVisualizer");
 
 			var response = await httpClient.SendAsync(request);
 			return await response.Content.ReadAsStringAsync();

@@ -8,27 +8,47 @@ namespace RedditVisualizer.Helpers
 {
 	class Pics
 	{
-		public static async Task<Tuple<List<RedditPost>, string, string>> FindAllControversialPicsAsync(string subreddit)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialPicsAsync(string subreddit)
 		{
-			return FindAllPicsAsync(await Posts.FindAllControversialPostsAsync(subreddit));
+			return FindPicsAsync(await Posts.FindControversialPostsAsync(subreddit));
 		}
 
-		public static async Task<Tuple<List<RedditPost>, string, string>> FindAllHotPicsAsync(string subreddit)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialPicsAsync(string subreddit, int countViewed, string after)
 		{
-			return FindAllPicsAsync(await Posts.FindAllHotPostsAsync(subreddit));
+			return FindPicsAsync(await Posts.FindControversialPostsAsync(subreddit, countViewed, after));
 		}
 
-		public static async Task<Tuple<List<RedditPost>, string, string>> FindAllNewPicsAsync(string subreddit)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindHotPicsAsync(string subreddit)
 		{
-			return FindAllPicsAsync(await Posts.FindAllNewPostsAsync(subreddit));
+			return FindPicsAsync(await Posts.FindHotPostsAsync(subreddit));
 		}
 
-		public static async Task<Tuple<List<RedditPost>, string, string>> FindAllTopPicsAsync(string subreddit)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindHotPicsAsync(string subreddit, int countViewed, string after)
 		{
-			return FindAllPicsAsync(await Posts.FindAllTopPostsAsync(subreddit));
+			return FindPicsAsync(await Posts.FindHotPostsAsync(subreddit, countViewed, after));
 		}
 
-		private static Tuple<List<RedditPost>, string, string> FindAllPicsAsync(Tuple<List<RedditPost>, string, string> OldPosts)
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindNewPicsAsync(string subreddit)
+		{
+			return FindPicsAsync(await Posts.FindNewPostsAsync(subreddit));
+		}
+
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindNewPicsAsync(string subreddit, int countViewed, string after)
+		{
+			return FindPicsAsync(await Posts.FindNewPostsAsync(subreddit, countViewed, after));
+		}
+
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindTopPicsAsync(string subreddit)
+		{
+			return FindPicsAsync(await Posts.FindTopPostsAsync(subreddit));
+		}
+
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindTopPicsAsync(string subreddit, int countViewed, string after)
+		{
+			return FindPicsAsync(await Posts.FindTopPostsAsync(subreddit, countViewed, after));
+		}
+
+		private static Tuple<List<RedditPost>, string, string> FindPicsAsync(Tuple<List<RedditPost>, string, string> OldPosts)
 		{
 			Tuple<List<RedditPost>, string, string> Posts = new Tuple<List<RedditPost>, string, string>(new List<RedditPost>(), OldPosts.Item2, OldPosts.Item3);
 
