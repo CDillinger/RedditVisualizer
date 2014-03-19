@@ -88,9 +88,10 @@ namespace RedditVisualizer.ViewModels
 
 		public enum PostSort
 		{
-			Controversial,
 			Hot,
 			New,
+			Rising,
+			Controversial,
 			Top
 		}
 
@@ -168,6 +169,10 @@ namespace RedditVisualizer.ViewModels
 							posts = await Helpers.Posts.FindNewPostsAsync(suffix);
 							break;
 
+						case PostSort.Rising:
+							posts = await Helpers.Posts.FindRisingPostsAsync(suffix);
+							break;
+
 						case PostSort.Top:
 						default:
 							posts = await Helpers.Posts.FindTopPostsAsync(suffix);
@@ -188,6 +193,10 @@ namespace RedditVisualizer.ViewModels
 
 						case PostSort.New:
 							posts = await Helpers.Pics.FindNewPicsAsync(suffix);
+							break;
+
+						case PostSort.Rising:
+							posts = await Helpers.Pics.FindRisingPicsAsync(suffix);
 							break;
 
 						case PostSort.Top:
@@ -222,6 +231,10 @@ namespace RedditVisualizer.ViewModels
 							posts = await Helpers.Posts.FindNewPostsAsync(suffix, countViewed, after);
 							break;
 
+						case PostSort.Rising:
+							posts = await Helpers.Posts.FindRisingPostsAsync(suffix, countViewed, after);
+							break;
+
 						case PostSort.Top:
 						default:
 							posts = await Helpers.Posts.FindTopPostsAsync(suffix, countViewed, after);
@@ -242,6 +255,10 @@ namespace RedditVisualizer.ViewModels
 
 						case PostSort.New:
 							posts = await Helpers.Pics.FindNewPicsAsync(suffix, countViewed, after);
+							break;
+
+						case PostSort.Rising:
+							posts = await Helpers.Pics.FindRisingPicsAsync(suffix, countViewed, after);
 							break;
 
 						case PostSort.Top:

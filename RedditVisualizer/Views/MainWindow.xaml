@@ -27,10 +27,11 @@
 				</Grid.ColumnDefinitions>
 				<TextBlock Grid.Column="0" Grid.Row="0" Text="URL Suffix:" Padding="0,3,0,0" VerticalAlignment="Top"/>
 				<TextBox x:Name="URLSuffixTextBox" Grid.Column="2" Grid.Row="0" Text="r/cats" Height="23" VerticalAlignment="Top"/>
-				<ComboBox x:Name="SortComboBox" Grid.Column="4" Grid.Row="0" Height="23" SelectedIndex="3" VerticalAlignment="Top">
-					<ComboBoxItem Content="Controversial"/>
+				<ComboBox x:Name="SortComboBox" Grid.Column="4" Grid.Row="0" Height="23" SelectedIndex="0" VerticalAlignment="Top">
 					<ComboBoxItem Content="Hot"/>
 					<ComboBoxItem Content="New"/>
+					<ComboBoxItem Content="Rising"/>
+					<ComboBoxItem Content="Controversial"/>
 					<ComboBoxItem Content="Top"/>
 				</ComboBox>
 			</Grid>

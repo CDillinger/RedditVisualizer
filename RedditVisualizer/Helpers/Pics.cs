@@ -38,6 +38,16 @@ namespace RedditVisualizer.Helpers
 			return FindPicsAsync(await Posts.FindNewPostsAsync(subreddit, countViewed, after));
 		}
 
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindRisingPicsAsync(string subreddit)
+		{
+			return FindPicsAsync(await Posts.FindRisingPostsAsync(subreddit));
+		}
+
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindRisingPicsAsync(string subreddit, int countViewed, string after)
+		{
+			return FindPicsAsync(await Posts.FindRisingPostsAsync(subreddit, countViewed, after));
+		}
+
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindTopPicsAsync(string subreddit)
 		{
 			return FindPicsAsync(await Posts.FindTopPostsAsync(subreddit));

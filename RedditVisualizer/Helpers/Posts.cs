@@ -39,6 +39,16 @@ namespace RedditVisualizer.Helpers
 			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/new.json?count={1}&after={2}", subreddit, countViewed, after));
 		}
 
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindRisingPostsAsync(string subreddit)
+		{
+			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/rising.json");
+		}
+
+		public static async Task<Tuple<List<RedditPost>, string, string>> FindRisingPostsAsync(string subreddit, int countViewed, string after)
+		{
+			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/rising.json?count={1}&after={2}", subreddit, countViewed, after));
+		}
+
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindTopPostsAsync(string subreddit)
 		{
 			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/top.json");
