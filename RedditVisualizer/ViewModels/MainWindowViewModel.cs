@@ -55,7 +55,11 @@ namespace RedditVisualizer.ViewModels
 		public RedditPost FeaturedPost
 		{
 			get { return _featuredPost; }
-			set { SetField(ref _featuredPost, value); }
+			set
+			{
+				SetField(ref _featuredPost, value);
+				PropertyChanged += FeaturedPost_PropertyChanged;
+			}
 		}
 		private RedditPost _featuredPost;
 
@@ -110,6 +114,22 @@ namespace RedditVisualizer.ViewModels
 			Process.Start("http://www.reddit.com" + FeaturedPost.Data.Permalink);
 		}
 
+		private static async Task CacheImageLocally(RedditPost post)
+		{
+			if (post != null && post.URLisImage && !post.CachedLocally)
+			{
+				string localPath = await CacheImage.CacheImageAsync(post.Data.URL);
+				post.Data.URL = localPath;
+				post.CachedLocally = true;
+			}
+		}
+
+		public static async void FeaturedPost_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			RedditPost post = sender as RedditPost;
+			await CacheImageLocally(post);
+		}
+
 		public async Task<bool> LoadInitialPostsAsync(string suffix, PostSort sort, PostType type)
 		{
 			Suffix = suffix;
@@ -122,7 +142,7 @@ namespace RedditVisualizer.ViewModels
 			FeaturedPost = posts.Item1[0];
 			BeforePost = posts.Item2;
 			AfterPost = posts.Item3;
-			CheckPostStuff();
+			await CheckPostStuff();
 
 			CountViewed = 25;
 
@@ -139,7 +159,7 @@ namespace RedditVisualizer.ViewModels
 			}
 			BeforePost = posts.Item2;
 			AfterPost = posts.Item3;
-			CheckPostStuff();
+			await CheckPostStuff();
 
 			CountViewed += 25;
 
@@ -272,10 +292,10 @@ namespace RedditVisualizer.ViewModels
 			return posts;
 		}
 
-		public void GoToPreviousPost()
+		public async void GoToPreviousPost()
 		{
 			FeaturedPost = Posts[Posts.IndexOf(FeaturedPost) - 1];
-			CheckPostStuff();
+			await CheckPostStuff();
 		}
 
 		public async void GoToNextPost()
@@ -297,11 +317,13 @@ namespace RedditVisualizer.ViewModels
 				FeaturedPost = Posts[Posts.IndexOf(FeaturedPost) + 1];
 
 			Window.NextImageButton.Content = "Next";
-			CheckPostStuff();
+			await CheckPostStuff();
 		}
 
-		public void CheckPostStuff()
+		public async Task CheckPostStuff()
 		{
+			await CacheImageLocally(FeaturedPost);
+
 			if (FeaturedPost != null)
 				Window.GoToButton.IsEnabled = true;
 			else

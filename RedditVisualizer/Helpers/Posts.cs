@@ -90,6 +90,20 @@ namespace RedditVisualizer.Helpers
 					string part2 = p.Data.Title.Substring(p.Data.Title.IndexOf("&quot;") + 6);
 					p.Data.Title = part1 + '"'.ToString() + part2;
 				}
+
+				try
+				{
+					string extension = p.Data.URL.Substring(p.Data.URL.LastIndexOf('.'));
+					if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif")
+						p.URLisImage = true;
+					else
+						p.URLisImage = false;
+				}
+
+				catch
+				{
+					p.URLisImage = false;
+				}
 			}
 
 			return new Tuple<List<RedditPost>, string, string>(posts, before, after);

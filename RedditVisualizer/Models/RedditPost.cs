@@ -4,9 +4,13 @@ namespace RedditVisualizer.Models
 {
 	public class RedditPost : Base
 	{
+		public bool CachedLocally = false;
+
+		public bool URLisImage { get; set; }
+
 		public string Kind { get; set; }
 
-		public LinkData Data {get;set;}
+		public LinkData Data { get; set; }
 
 		public class LinkData
 		{

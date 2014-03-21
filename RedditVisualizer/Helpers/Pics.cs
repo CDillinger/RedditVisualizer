@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 
 namespace RedditVisualizer.Helpers
 {
+	// To-do: integrate this with theURLisImage bool somehow
+
 	class Pics
 	{
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialPicsAsync(string subreddit)
