@@ -93,6 +93,13 @@ namespace RedditVisualizer.Helpers
 
 				try
 				{
+					if (p.Data.URL.Contains("imgur.com") && !p.Data.URL.Contains("/i./") && !p.Data.URL.Contains("/a/") && !p.Data.URL.Contains("/gallery/"))
+					{
+						string tempURL1 = p.Data.URL.Substring(0, p.Data.URL.IndexOf("imgur.com"));
+						string tempURL2 = p.Data.URL.Substring(p.Data.URL.IndexOf("imgur.com"));
+						p.Data.URL = string.Format("{0}i.{1}.png", tempURL1, tempURL2);
+					}
+
 					string extension = p.Data.URL.Substring(p.Data.URL.LastIndexOf('.'));
 					if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif")
 						p.URLisImage = true;
