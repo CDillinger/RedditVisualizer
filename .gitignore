@@ -2,7 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/RedditVisualizer/bin
-/RedditVisualizer/obj
-/packages
-/RedditVisualizer.v12.suo
+/Source/RedditVisualizer/bin
+/Source/RedditVisualizer/obj
+/Source/packages
+/Source/RedditVisualizer.v12.suo

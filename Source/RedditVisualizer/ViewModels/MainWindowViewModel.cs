@@ -102,7 +102,8 @@ namespace RedditVisualizer.ViewModels
 		public enum PostType
 		{
 			All,
-			PicsOnly
+			Pics,
+			SelfText
 		}
 
 		#endregion
@@ -116,7 +117,7 @@ namespace RedditVisualizer.ViewModels
 
 		private static async Task CacheImageLocally(RedditPost post)
 		{
-			if (post != null && post.URLisImage && !post.CachedLocally)
+			if (post != null && (post.PostType == RedditPost.URLType.Image || post.PostType == RedditPost.URLType.GIF) && !post.CachedLocally)
 			{
 				string localPath = await CacheImage.CacheImageAsync(post.Data.URL);
 				post.Data.URL = localPath;
@@ -200,7 +201,7 @@ namespace RedditVisualizer.ViewModels
 					}
 					break;
 
-				case PostType.PicsOnly:
+				case PostType.Pics:
 					switch (sort)
 					{
 						case PostSort.Controversial:
@@ -222,6 +223,32 @@ namespace RedditVisualizer.ViewModels
 						case PostSort.Top:
 						default:
 							posts = await Helpers.Pics.FindTopPicsAsync(suffix);
+							break;
+					}
+					break;
+
+				case PostType.SelfText:
+					switch (sort)
+					{
+						case PostSort.Controversial:
+							posts = await Helpers.SelfText.FindControversialSelfTextAsync(suffix);
+							break;
+
+						case PostSort.Hot:
+							posts = await Helpers.SelfText.FindHotSelfTextAsync(suffix);
+							break;
+
+						case PostSort.New:
+							posts = await Helpers.SelfText.FindNewSelfTextAsync(suffix);
+							break;
+
+						case PostSort.Rising:
+							posts = await Helpers.SelfText.FindRisingSelfTextAsync(suffix);
+							break;
+
+						case PostSort.Top:
+						default:
+							posts = await Helpers.SelfText.FindTopSelfTextAsync(suffix);
 							break;
 					}
 					break;
@@ -262,7 +289,7 @@ namespace RedditVisualizer.ViewModels
 					}
 					break;
 
-				case PostType.PicsOnly:
+				case PostType.Pics:
 					switch (sort)
 					{
 						case PostSort.Controversial:
@@ -284,6 +311,32 @@ namespace RedditVisualizer.ViewModels
 						case PostSort.Top:
 						default:
 							posts = await Helpers.Pics.FindTopPicsAsync(suffix, countViewed, after);
+							break;
+					}
+					break;
+
+				case PostType.SelfText:
+					switch (sort)
+					{
+						case PostSort.Controversial:
+							posts = await Helpers.SelfText.FindControversialSelfTextAsync(suffix, countViewed, after);
+							break;
+
+						case PostSort.Hot:
+							posts = await Helpers.SelfText.FindHotSelfTextAsync(suffix, countViewed, after);
+							break;
+
+						case PostSort.New:
+							posts = await Helpers.SelfText.FindNewSelfTextAsync(suffix, countViewed, after);
+							break;
+
+						case PostSort.Rising:
+							posts = await Helpers.SelfText.FindRisingSelfTextAsync(suffix, countViewed, after);
+							break;
+
+						case PostSort.Top:
+						default:
+							posts = await Helpers.SelfText.FindTopSelfTextAsync(suffix, countViewed, after);
 							break;
 					}
 					break;
@@ -314,7 +367,9 @@ namespace RedditVisualizer.ViewModels
 				await LoadMorePostsAsync(Suffix, Sort, Type);
 			}
 			else
+			{
 				FeaturedPost = Posts[Posts.IndexOf(FeaturedPost) + 1];
+			}
 
 			Window.NextImageButton.Content = "Next";
 			await CheckPostStuff();
@@ -341,6 +396,34 @@ namespace RedditVisualizer.ViewModels
 			}
 			else
 				Window.NextImageButton.IsEnabled = true;
+
+			switch (FeaturedPost.PostType)
+			{
+				case RedditPost.URLType.SelfText:
+					Window.BodyTextBlock.Visibility = System.Windows.Visibility.Visible;
+					Window.StillImage.Visibility = System.Windows.Visibility.Collapsed;
+					Window.GIFImage.Visibility = System.Windows.Visibility.Collapsed;
+					break;
+
+				case RedditPost.URLType.Image:
+					Window.BodyTextBlock.Visibility = System.Windows.Visibility.Collapsed;
+					Window.StillImage.Visibility = System.Windows.Visibility.Visible;
+					Window.GIFImage.Visibility = System.Windows.Visibility.Collapsed;
+					break;
+
+				case RedditPost.URLType.GIF:
+					Window.BodyTextBlock.Visibility = System.Windows.Visibility.Collapsed;
+					Window.StillImage.Visibility = System.Windows.Visibility.Collapsed;
+					Window.GIFImage.Visibility = System.Windows.Visibility.Visible;
+					break;
+
+				case RedditPost.URLType.Other:
+				default:
+					Window.BodyTextBlock.Visibility = System.Windows.Visibility.Collapsed;
+					Window.StillImage.Visibility = System.Windows.Visibility.Collapsed;
+					Window.GIFImage.Visibility = System.Windows.Visibility.Collapsed;
+					break;
+			}
 		}
 
 		#endregion

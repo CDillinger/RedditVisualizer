@@ -84,16 +84,20 @@ namespace RedditVisualizer.Helpers
 			List<RedditPost> posts = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<List<RedditPost>>(response));
 			foreach (RedditPost p in posts)
 			{
-				while (p.Data.Title.Contains("&quot;"))
-				{
-					string part1 = p.Data.Title.Substring(0, p.Data.Title.IndexOf("&quot;"));
-					string part2 = p.Data.Title.Substring(p.Data.Title.IndexOf("&quot;") + 6);
-					p.Data.Title = part1 + '"'.ToString() + part2;
-				}
+				p.Data.Title = StringConvert.XmlStringToNormal(p.Data.Title);
+				p.Data.SelfText = StringConvert.XmlStringToNormal(p.Data.SelfText);
 
 				try
 				{
-					if (p.Data.URL.Contains("imgur.com") && !p.Data.URL.Contains("/i./") && !p.Data.URL.Contains("/a/") && !p.Data.URL.Contains("/gallery/"))
+					DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+					p.ReadableTime = dt.AddSeconds(p.Data.CreationTimeStampUTC).ToLocalTime().ToString("g");
+
+					if (p.Data.Domain.IndexOf("self.") == 0)
+					{
+						p.PostType = RedditPost.URLType.SelfText;
+					}
+
+					if (p.Data.URL.Contains("imgur.com") && !p.Data.URL.Contains("i.") && !p.Data.URL.Contains("/a/") && !p.Data.URL.Contains("/r/") && !p.Data.URL.Contains("/gallery/"))
 					{
 						string tempURL1 = p.Data.URL.Substring(0, p.Data.URL.IndexOf("imgur.com"));
 						string tempURL2 = p.Data.URL.Substring(p.Data.URL.IndexOf("imgur.com"));
@@ -101,15 +105,16 @@ namespace RedditVisualizer.Helpers
 					}
 
 					string extension = p.Data.URL.Substring(p.Data.URL.LastIndexOf('.'));
-					if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif")
-						p.URLisImage = true;
-					else
-						p.URLisImage = false;
+					if (extension == ".jpg" || extension == ".jpeg" || extension == ".png")
+						p.PostType = RedditPost.URLType.Image;
+
+					if (extension == ".gif")
+						p.PostType = RedditPost.URLType.GIF;
 				}
 
 				catch
 				{
-					p.URLisImage = false;
+					p.PostType = RedditPost.URLType.Other;
 				}
 			}
 

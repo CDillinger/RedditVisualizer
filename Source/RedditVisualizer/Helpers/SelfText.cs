@@ -6,8 +6,6 @@ using Newtonsoft.Json;
 
 namespace RedditVisualizer.Helpers
 {
-	// To-do: integrate this with theURLisImage bool somehow
-
 	class Pics
 	{
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialPicsAsync(string subreddit)
@@ -65,15 +63,8 @@ namespace RedditVisualizer.Helpers
 			Tuple<List<RedditPost>, string, string> Posts = new Tuple<List<RedditPost>, string, string>(new List<RedditPost>(), OldPosts.Item2, OldPosts.Item3);
 
 			foreach (RedditPost p in OldPosts.Item1)
-			{
-				try
-				{
-					string extension = p.Data.URL.Substring(p.Data.URL.LastIndexOf('.'));
-					if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif")
-						Posts.Item1.Add(p);
-				}
-				catch { }
-			}
+				if (p.PostType == RedditPost.URLType.Image || p.PostType == RedditPost.URLType.GIF)
+					Posts.Item1.Add(p);
 
 			return Posts;
 		}

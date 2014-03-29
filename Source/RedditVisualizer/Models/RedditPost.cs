@@ -4,11 +4,13 @@ namespace RedditVisualizer.Models
 {
 	public class RedditPost : Base
 	{
-		public bool CachedLocally = false;
-
-		public bool URLisImage { get; set; }
-
 		public string Kind { get; set; }
+
+		public URLType PostType { get; set; }
+
+		public string ReadableTime { get; set; }
+
+		public bool CachedLocally { get; set; }
 
 		public LinkData Data { get; set; }
 
@@ -16,6 +18,8 @@ namespace RedditVisualizer.Models
 		{
 			[JsonProperty("name")]
 			public string ID { get; set; }
+
+			public string SelfText { get; set; }
 
 			public string Title { get; set; }
 
@@ -27,11 +31,13 @@ namespace RedditVisualizer.Models
 
 			public string URL { get; set; }
 
+			public string Domain { get; set; }
+
 			[JsonProperty("created")]
-			public float CreationTimeStamp { get; set; }
+			public double CreationTimeStamp { get; set; }
 
 			[JsonProperty("created_utc")]
-			public float CreationTimeStampUTC { get; set; }
+			public double CreationTimeStampUTC { get; set; }
 
 			[JsonProperty("over_18")]
 			public bool NSFW { get; set; }
@@ -46,6 +52,14 @@ namespace RedditVisualizer.Models
 
 			[JsonProperty("num_comments")]
 			public int CommentCount { get; set; }
+		}
+
+		public enum URLType
+		{
+			Other,
+			Image,
+			GIF,
+			SelfText
 		}
 	}
 }
