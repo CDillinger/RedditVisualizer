@@ -69,8 +69,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\CacheImage.cs" />
-    <Compile Include="Helpers\SelfText.cs" />
     <Compile Include="Helpers\Pics.cs" />
+    <Compile Include="Helpers\SelfText.cs" />
     <Compile Include="Helpers\StringConvert.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
