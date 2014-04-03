@@ -6,6 +6,7 @@ using RedditVisualizer.Helpers;
 using RedditVisualizer.Models;
 using RedditVisualizer.ViewModels;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace RedditVisualizer.Views
 {
@@ -144,6 +145,30 @@ namespace RedditVisualizer.Views
 			PredefinedSubsComboBox.Visibility = System.Windows.Visibility.Visible;
 			URLTextBlock.Visibility = System.Windows.Visibility.Collapsed;
 			URLSuffixTextBox.Visibility = System.Windows.Visibility.Collapsed;
+		}
+
+		private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			if (!PostTypeComboBox.IsFocused && !PredefinedSubsComboBox.IsFocused && !SortComboBox.IsFocused)
+			{
+				switch (e.Key)
+				{
+					case System.Windows.Input.Key.Left:
+						e.Handled = true;
+						ViewModel.GoToPreviousPost();
+						PreviousImageButton.Focus();
+						break;
+
+					case System.Windows.Input.Key.Right:
+						e.Handled = true;
+						ViewModel.GoToNextPost();
+						NextImageButton.Focus();
+						break;
+
+					default:
+						break;
+				}
+			}
 		}
 	}
 }

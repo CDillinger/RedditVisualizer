@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:elements="clr-namespace:RedditVisualizer.Views.Elements"
 		xmlns:gif="http://wpfanimatedgif.codeplex.com"
-        Title="Reddit Visualizer" Height="350" Width="525">
+        Title="Reddit Visualizer" Height="350" Width="525" KeyDown="Window_KeyDown">
 	<Grid Margin="10,10,10,10">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="60"/>
@@ -112,9 +112,9 @@
 					<Line Y1="5" Y2="20" Stroke="Black"/>
 				</StackPanel>
 			</elements:AlignableWrapPanel>
-			<Button x:Name="GoToButton" Grid.ColumnSpan="3" Grid.Row="5" Content="Go To Post" IsEnabled="False" Click="GoToButton_Click"/>
-			<Button x:Name="PreviousImageButton" Grid.Column="0" Grid.Row="7" Content="Previous" IsEnabled="False" Click="PreviousImageButton_Click"/>
-			<Button x:Name="NextImageButton" Grid.Column="2" Grid.Row="7" Content="Next" IsEnabled="False" Click="NextImageButton_Click"/>
+			<Button x:Name="PreviousImageButton" Grid.Column="0" Grid.Row="5" Content="Previous" IsEnabled="False" Click="PreviousImageButton_Click"/>
+			<Button x:Name="NextImageButton" Grid.Column="2" Grid.Row="5" Content="Next" IsEnabled="False" Click="NextImageButton_Click"/>
+			<Button x:Name="GoToButton" Grid.ColumnSpan="3" Grid.Row="7" Content="Go To Post" IsEnabled="False" Click="GoToButton_Click"/>
 		</Grid>
 	</Grid>
 </Window>
