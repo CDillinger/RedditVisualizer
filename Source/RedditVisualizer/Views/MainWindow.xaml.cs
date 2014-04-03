@@ -170,5 +170,26 @@ namespace RedditVisualizer.Views
 				}
 			}
 		}
+
+		private void Window_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (PreviousImageButton.IsMouseOver && ViewModel.Posts != null && ViewModel.FeaturedPost != null && ViewModel.Posts.IndexOf(ViewModel.FeaturedPost) > 0)
+			{
+				LeftArrowImage.Opacity = 0.8;
+				RightArrowImage.Opacity = 0.4;
+			}
+
+			else if (NextImageButton.IsMouseOver && ViewModel.Posts != null && ViewModel.FeaturedPost != null && ViewModel.Posts.IndexOf(ViewModel.FeaturedPost) <= ViewModel.Posts.Count - 1)
+			{
+				LeftArrowImage.Opacity = 0.4;
+				RightArrowImage.Opacity = 0.8;
+			}
+
+			else
+			{
+				LeftArrowImage.Opacity = 0.4;
+				RightArrowImage.Opacity = 0.4;
+			}
+		}
 	}
 }

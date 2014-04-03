@@ -3,118 +3,133 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:elements="clr-namespace:RedditVisualizer.Views.Elements"
 		xmlns:gif="http://wpfanimatedgif.codeplex.com"
-        Title="Reddit Visualizer" Height="350" Width="525" KeyDown="Window_KeyDown">
+        Title="Reddit Visualizer" Height="350" Width="525" KeyDown="Window_KeyDown" MouseMove="Window_MouseMove">
 	<Grid Margin="10,10,10,10">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="60"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
 		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="5"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="*"/>
+				<RowDefinition Height="60"/>
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
-			<Grid Grid.ColumnSpan="3" Grid.Row="0">
+			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="5"/>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="5"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="5"/>
-					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<ComboBox x:Name="PredefinedSubsComboBox" Grid.ColumnSpan="3" Grid.Row="0" Height="23" SelectedIndex="0" VerticalAlignment="Top" SelectionChanged="PredefinedSubsComboBox_SelectionChanged">
-					<ComboBoxItem Content="All (r/all)"/>
-					<ComboBoxItem Content="Animals Being Jerks (r/animalsbeingjerks)"/>
-					<ComboBoxItem Content="Cars (r/carporn)"/>
-					<ComboBoxItem Content="Cats (r/cats)"/>
-					<ComboBoxItem Content="Comics (r/comics)"/>
-					<ComboBoxItem Content="Corgis (r/corgi)"/>
-					<ComboBoxItem Content="Cute (r/aww)"/>
-					<ComboBoxItem Content="Dogs (r/dogpictures)"/>
-					<ComboBoxItem Content="Food (r/food)"/>
-					<ComboBoxItem Content="More Food (r/foodporn)"/>
-					<ComboBoxItem Content="Funny (r/funny)"/>
-					<ComboBoxItem Content="History (r/historyporn)"/>
-					<ComboBoxItem Content="Jokes (r/jokes)"/>
-					<ComboBoxItem Content="Military (r/militaryporn)"/>
-					<ComboBoxItem Content="Pictures (r/pics)"/>
-					<ComboBoxItem Content="Tattoos (r/tattoos)"/>
-					<ComboBoxItem Content="Wallpapers (r/wallpapers)"/>
-					<ComboBoxItem Content="Water (r/waterporn)"/>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid Grid.ColumnSpan="3" Grid.Row="0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="5"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="5"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="5"/>
+						<ColumnDefinition Width="100"/>
+					</Grid.ColumnDefinitions>
+					<ComboBox x:Name="PredefinedSubsComboBox" Grid.ColumnSpan="3" Grid.Row="0" Height="23" SelectedIndex="0" VerticalAlignment="Top" SelectionChanged="PredefinedSubsComboBox_SelectionChanged">
+						<ComboBoxItem Content="All (r/all)"/>
+						<ComboBoxItem Content="Animals Being Jerks (r/animalsbeingjerks)"/>
+						<ComboBoxItem Content="Cars (r/carporn)"/>
+						<ComboBoxItem Content="Cats (r/cats)"/>
+						<ComboBoxItem Content="Comics (r/comics)"/>
+						<ComboBoxItem Content="Corgis (r/corgi)"/>
+						<ComboBoxItem Content="Cute (r/aww)"/>
+						<ComboBoxItem Content="Dogs (r/dogpictures)"/>
+						<ComboBoxItem Content="Food (r/food)"/>
+						<ComboBoxItem Content="More Food (r/foodporn)"/>
+						<ComboBoxItem Content="Funny (r/funny)"/>
+						<ComboBoxItem Content="History (r/historyporn)"/>
+						<ComboBoxItem Content="Jokes (r/jokes)"/>
+						<ComboBoxItem Content="Military (r/militaryporn)"/>
+						<ComboBoxItem Content="Pictures (r/pics)"/>
+						<ComboBoxItem Content="Tattoos (r/tattoos)"/>
+						<ComboBoxItem Content="Wallpapers (r/wallpapers)"/>
+						<ComboBoxItem Content="Water (r/waterporn)"/>
+					</ComboBox>
+					<TextBlock x:Name="URLTextBlock" Grid.Column="0" Grid.Row="0" Text="URL Suffix:" Padding="0,3,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+					<TextBox x:Name="URLSuffixTextBox" Grid.Column="2" Grid.Row="0" Text="r/all" Height="23" VerticalAlignment="Top" Visibility="Collapsed"/>
+					<CheckBox x:Name="CustomURLCheckBox"  Grid.Column="4" Grid.Row="0" Content="Custom SubReddit" IsChecked="False" VerticalAlignment="Top" Margin="0,3" Checked="CustomURLCheckBox_Checked" Unchecked="CustomURLCheckBox_Unchecked"/>
+					<ComboBox x:Name="SortComboBox" Grid.Column="6" Grid.Row="0" Height="23" SelectedIndex="0" VerticalAlignment="Top">
+						<ComboBoxItem Content="Hot"/>
+						<ComboBoxItem Content="New"/>
+						<ComboBoxItem Content="Rising"/>
+						<ComboBoxItem Content="Controversial"/>
+						<ComboBoxItem Content="Top"/>
+					</ComboBox>
+				</Grid>
+				<ComboBox x:Name="PostTypeComboBox" Margin="0,0,0,5" Grid.Column="0" Grid.Row="1" Height="23" SelectedIndex="0" VerticalAlignment="Top">
+					<ComboBoxItem Content="All"/>
+					<ComboBoxItem Content="Pictures"/>
+					<ComboBoxItem Content="Self Posts (Text)"/>
 				</ComboBox>
-				<TextBlock x:Name="URLTextBlock" Grid.Column="0" Grid.Row="0" Text="URL Suffix:" Padding="0,3,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-				<TextBox x:Name="URLSuffixTextBox" Grid.Column="2" Grid.Row="0" Text="r/all" Height="23" VerticalAlignment="Top" Visibility="Collapsed"/>
-				<CheckBox x:Name="CustomURLCheckBox"  Grid.Column="4" Grid.Row="0" Content="Custom SubReddit" IsChecked="False" VerticalAlignment="Top" Margin="0,3" Checked="CustomURLCheckBox_Checked" Unchecked="CustomURLCheckBox_Unchecked"/>
-				<ComboBox x:Name="SortComboBox" Grid.Column="6" Grid.Row="0" Height="23" SelectedIndex="0" VerticalAlignment="Top">
-					<ComboBoxItem Content="Hot"/>
-					<ComboBoxItem Content="New"/>
-					<ComboBoxItem Content="Rising"/>
-					<ComboBoxItem Content="Controversial"/>
-					<ComboBoxItem Content="Top"/>
-				</ComboBox>
+				<Button x:Name="GetPostsButton" Grid.Column="2" Grid.Row="1" Height="23" Content="Get Posts" VerticalAlignment="Top" HorizontalAlignment="Stretch" Click="GetPostsButton_Click"/>
 			</Grid>
-			<ComboBox x:Name="PostTypeComboBox" Margin="0,0,0,5" Grid.Column="0" Grid.Row="1" Height="23" SelectedIndex="0" VerticalAlignment="Top">
-				<ComboBoxItem Content="All"/>
-				<ComboBoxItem Content="Pictures"/>
-				<ComboBoxItem Content="Self Posts (Text)"/>
-			</ComboBox>
-			<Button x:Name="GetPostsButton" Grid.Column="2" Grid.Row="1" Height="23" Content="Get Posts" VerticalAlignment="Top" HorizontalAlignment="Stretch" Click="GetPostsButton_Click"/>
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="5"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="3"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="3"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="3"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<TextBlock x:Name="TitleTextBlock" Grid.ColumnSpan="3" Grid.Row="0" Text="{Binding Path=FeaturedPost.Data.Title, FallbackValue='Select a Subreddit and Hit &quot;Get Posts&quot;!'}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow"/>
+				<TextBlock x:Name="BodyTextBlock" Grid.ColumnSpan="3" Grid.Row="1" Text="{Binding Path=FeaturedPost.Data.SelfText, FallbackValue='Text or picture will go here.'}" FontSize="14" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow"/>
+				<Image x:Name="StillImage" Grid.ColumnSpan="3" Grid.Row="1" Source="{Binding Path=FeaturedPost.Data.URL}" StretchDirection="DownOnly"/>
+				<Image x:Name="GIFImage" Grid.ColumnSpan="3" Grid.Row="1" gif:ImageBehavior.AnimatedSource="{Binding Path=FeaturedPost.Data.URL}" StretchDirection="DownOnly"/>
+				<elements:AlignableWrapPanel Grid.ColumnSpan="3" Grid.Row="3" HorizontalContentAlignment="Center" HorizontalAlignment="Center">
+					<StackPanel Orientation="Horizontal">
+						<Line Y1="5" Y2="20" Stroke="Black"/>
+						<TextBlock Text="{Binding Path=FeaturedPost.Data.Author, StringFormat='Author: {0}', FallbackValue='Author: null'}" Margin="4"/>
+						<Line Y1="5" Y2="20" Stroke="Black"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Margin="-0,0">
+						<Line Y1="5" Y2="20" Stroke="Black"/>
+						<TextBlock Margin="4">
+							<TextBlock.Text>
+								<MultiBinding StringFormat="Score: {0} (Ups: {1}, Downs: {2})" FallbackValue="Score: null (Ups: null, Downs: null)">
+									<Binding Path="FeaturedPost.Data.Score" />
+									<Binding Path="FeaturedPost.Data.UpVotes" />
+									<Binding Path="FeaturedPost.Data.DownVotes" />
+								</MultiBinding>
+							</TextBlock.Text>
+						</TextBlock>
+						<Line Y1="5" Y2="20" Stroke="Black"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<Line Y1="5" Y2="20" Stroke="Black"/>
+						<TextBlock Text="{Binding Path=FeaturedPost.ReadableTime, StringFormat='Posted On: {0}', FallbackValue='Posted On: null'}" Margin="4"/>
+						<Line Y1="5" Y2="20" Stroke="Black"/>
+					</StackPanel>
+				</elements:AlignableWrapPanel>
+				<Button x:Name="GoToButton" Grid.ColumnSpan="3" Grid.Row="7" Content="Go To Post" IsEnabled="False" Click="GoToButton_Click"/>
+			</Grid>
 		</Grid>
-		<Grid Grid.Row="1">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="80"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="50"/>
+			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="5"/>
-				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="2*"/>
 			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="3"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="3"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="3"/>
-				<RowDefinition Height="Auto"/>
-			</Grid.RowDefinitions>
-			<TextBlock x:Name="TitleTextBlock" Grid.ColumnSpan="3" Grid.Row="0" Text="{Binding Path=FeaturedPost.Data.Title, FallbackValue='Select a Subreddit and Hit &quot;Get Posts&quot;!'}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow"/>
-			<TextBlock x:Name="BodyTextBlock" Grid.ColumnSpan="3" Grid.Row="1" Text="{Binding Path=FeaturedPost.Data.SelfText, FallbackValue='Text or picture will go here.'}" FontSize="14" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow"/>
-			<Image x:Name="StillImage" Grid.ColumnSpan="3" Grid.Row="1" Source="{Binding Path=FeaturedPost.Data.URL}" StretchDirection="DownOnly"/>
-			<Image x:Name="GIFImage" Grid.ColumnSpan="3" Grid.Row="1" gif:ImageBehavior.AnimatedSource="{Binding Path=FeaturedPost.Data.URL}" StretchDirection="DownOnly"/>
-			<elements:AlignableWrapPanel Grid.ColumnSpan="3" Grid.Row="3" HorizontalContentAlignment="Center" HorizontalAlignment="Center">
-				<StackPanel Orientation="Horizontal">
-					<Line Y1="5" Y2="20" Stroke="Black"/>
-					<TextBlock Text="{Binding Path=FeaturedPost.Data.Author, StringFormat='Author: {0}', FallbackValue='Author: null'}" Margin="4"/>
-					<Line Y1="5" Y2="20" Stroke="Black"/>
-				</StackPanel>
-				<StackPanel Orientation="Horizontal" Margin="-0,0">
-					<Line Y1="5" Y2="20" Stroke="Black"/>
-					<TextBlock Margin="4">
-						<TextBlock.Text>
-							<MultiBinding StringFormat="Score: {0} (Ups: {1}, Downs: {2})" FallbackValue="Score: null (Ups: null, Downs: null)">
-								<Binding Path="FeaturedPost.Data.Score" />
-								<Binding Path="FeaturedPost.Data.UpVotes" />
-								<Binding Path="FeaturedPost.Data.DownVotes" />
-							</MultiBinding>
-						</TextBlock.Text>
-					</TextBlock>
-					<Line Y1="5" Y2="20" Stroke="Black"/>
-				</StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<Line Y1="5" Y2="20" Stroke="Black"/>
-					<TextBlock Text="{Binding Path=FeaturedPost.ReadableTime, StringFormat='Posted On: {0}', FallbackValue='Posted On: null'}" Margin="4"/>
-					<Line Y1="5" Y2="20" Stroke="Black"/>
-				</StackPanel>
-			</elements:AlignableWrapPanel>
-			<Button x:Name="PreviousImageButton" Grid.Column="0" Grid.Row="5" Content="Previous" IsEnabled="False" Click="PreviousImageButton_Click"/>
-			<Button x:Name="NextImageButton" Grid.Column="2" Grid.Row="5" Content="Next" IsEnabled="False" Click="NextImageButton_Click"/>
-			<Button x:Name="GoToButton" Grid.ColumnSpan="3" Grid.Row="7" Content="Go To Post" IsEnabled="False" Click="GoToButton_Click"/>
+			<Image x:Name="LeftArrowImage" Grid.Row="1" Grid.Column="0" Opacity="0.3" Source="/RedditVisualizer;component/Media/LeftArrow.png" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" />
+			<Image x:Name="RightArrowImage" Grid.Row="1" Grid.Column="1" Opacity="0.3" Source="/RedditVisualizer;component/Media/RightArrow.png" Height="50" HorizontalAlignment="Right" VerticalAlignment="Center" />
+			<Button x:Name="PreviousImageButton" Grid.Row="1" Grid.Column="0" Opacity="0" Click="PreviousImageButton_Click"/>
+			<Button x:Name="NextImageButton" Grid.Row="1" Grid.Column="1" Opacity="0" Click="NextImageButton_Click"/>
 		</Grid>
 	</Grid>
 </Window>
