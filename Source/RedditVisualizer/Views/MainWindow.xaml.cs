@@ -41,13 +41,28 @@ namespace RedditVisualizer.Views
 			ViewModel.OpenFeatured();
 		}
 
+		private async void SaveImageButton_OnClickButton_Click(object sender, RoutedEventArgs e)
+		{
+			await ViewModel.SaveImageAs();
+		}
+
+		private void OpenLinkButton_OnClickButton_Click(object sender, RoutedEventArgs e)
+		{
+			ViewModel.OpenLink();
+		}
+
 		private void PreviousImageButton_Click(object sender, RoutedEventArgs e)
 		{
+
+			if (ViewModel.FeaturedPost == null)
+				return;
 			ViewModel.GoToPreviousPost();
 		}
 
 		private void NextImageButton_Click(object sender, RoutedEventArgs e)
 		{
+			if (ViewModel.FeaturedPost == null)
+				return;
 			ViewModel.GoToNextPost();
 		}
 

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:elements="clr-namespace:RedditVisualizer.Views.Elements"
 		xmlns:gif="http://wpfanimatedgif.codeplex.com"
-        Title="Reddit Visualizer" Height="350" Width="525" KeyDown="Window_KeyDown" MouseMove="Window_MouseMove">
+        Title="Reddit Visualizer" MinHeight="350" MinWidth="525" KeyDown="Window_KeyDown" MouseMove="Window_MouseMove" Height="535" Width="768">
 	<Grid Margin="10,10,10,10">
 		<Grid>
 			<Grid.RowDefinitions>
@@ -113,7 +113,18 @@
 						<Line Y1="5" Y2="20" Stroke="Black"/>
 					</StackPanel>
 				</elements:AlignableWrapPanel>
-				<Button x:Name="GoToButton" Grid.ColumnSpan="3" Grid.Row="7" Content="Go To Post" IsEnabled="False" Click="GoToButton_Click"/>
+				<Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="7">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="5"/>
+						<ColumnDefinition Width="2*"/>
+						<ColumnDefinition Width="5"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Button x:Name="SaveImageButton" Grid.Column="0" Content="Save Image" IsEnabled="False" Click="SaveImageButton_OnClickButton_Click"/>
+					<Button x:Name="GoToButton" Grid.Column="2" Content="Go To Post" IsEnabled="False" Click="GoToButton_Click"/>
+					<Button x:Name="OpenLinkButton" Grid.Column="4" Content="Open Link" IsEnabled="False" Click="OpenLinkButton_OnClickButton_Click"/>
+				</Grid>
 			</Grid>
 		</Grid>
 		<Grid>
@@ -126,10 +137,10 @@
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="2*"/>
 			</Grid.ColumnDefinitions>
-			<Image x:Name="LeftArrowImage" Grid.Row="1" Grid.Column="0" Opacity="0.3" Source="/RedditVisualizer;component/Media/LeftArrow.png" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" />
-			<Image x:Name="RightArrowImage" Grid.Row="1" Grid.Column="1" Opacity="0.3" Source="/RedditVisualizer;component/Media/RightArrow.png" Height="50" HorizontalAlignment="Right" VerticalAlignment="Center" />
-			<Button x:Name="PreviousImageButton" Grid.Row="1" Grid.Column="0" Opacity="0" Click="PreviousImageButton_Click"/>
-			<Button x:Name="NextImageButton" Grid.Row="1" Grid.Column="1" Opacity="0" Click="NextImageButton_Click"/>
+			<Image x:Name="LeftArrowImage" Grid.Row="1" Grid.Column="0" Opacity="0.3" Source="/Reddit Visualizer;component/Media/LeftArrow.png" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" />
+			<Image x:Name="RightArrowImage" Grid.Row="1" Grid.Column="1" Opacity="0.3" Source="/Reddit Visualizer;component/Media/RightArrow.png" Height="50" HorizontalAlignment="Right" VerticalAlignment="Center" />
+			<Button x:Name="PreviousImageButton" Grid.Row="1" Grid.Column="0" Opacity="0" Click="PreviousImageButton_Click"  ContextMenuService.ShowOnDisabled="True"/>
+			<Button x:Name="NextImageButton" Grid.Row="1" Grid.Column="1" Opacity="0" Click="NextImageButton_Click" ContextMenuService.ShowOnDisabled="True"/>
 		</Grid>
 	</Grid>
 </Window>

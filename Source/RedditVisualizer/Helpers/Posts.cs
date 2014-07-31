@@ -116,8 +116,10 @@ namespace RedditVisualizer.Helpers
 				{
 					p.PostType = RedditPost.URLType.Other;
 				}
-			}
 
+				p.Data.NonCachedURL = p.Data.URL;
+			}
+			
 			return new Tuple<List<RedditPost>, string, string>(posts, before, after);
 		}
 

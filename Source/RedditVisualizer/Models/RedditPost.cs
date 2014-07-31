@@ -31,6 +31,8 @@ namespace RedditVisualizer.Models
 
 			public string URL { get; set; }
 
+			public string NonCachedURL { get; set; }
+
 			public string Domain { get; set; }
 
 			[JsonProperty("created")]

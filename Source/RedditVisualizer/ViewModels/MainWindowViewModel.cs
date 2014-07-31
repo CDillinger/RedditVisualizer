@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Win32;
 using RedditVisualizer.Helpers;
 using RedditVisualizer.Models;
 using RedditVisualizer.Views;
@@ -113,6 +114,41 @@ namespace RedditVisualizer.ViewModels
 		public void OpenFeatured()
 		{
 			Process.Start("http://www.reddit.com" + FeaturedPost.Data.Permalink);
+		}
+
+		public void OpenLink()
+		{
+			Process.Start(FeaturedPost.Data.NonCachedURL);
+		}
+
+		public async Task SaveImageAs()
+		{
+			var dialog = new SaveFileDialog
+			{
+				FileName = FeaturedPost.Data.NonCachedURL.Substring(FeaturedPost.Data.NonCachedURL.LastIndexOf('/') + 1)
+			};
+			switch (FeaturedPost.PostType)
+			{
+				case RedditPost.URLType.GIF:
+					dialog.Filter = "GIF Image (*.gif) | *.gif";
+					break;
+				case RedditPost.URLType.Image:
+					if (FeaturedPost.Data.NonCachedURL.EndsWith(".png"))
+						dialog.Filter = "PNG Files (*.png) | *.png";
+					else if (FeaturedPost.Data.NonCachedURL.EndsWith(".jpg") || FeaturedPost.Data.NonCachedURL.EndsWith(".jpg"))
+						dialog.Filter = "JPG Files (*.jpg) | *.jpg";
+					else
+					{
+						var extension = FeaturedPost.Data.NonCachedURL.Substring(FeaturedPost.Data.NonCachedURL.LastIndexOf('.') + 1);
+						dialog.Filter = string.Format("{0} Files (*.{1}) | *.{1}", extension.ToUpper(), extension.ToLower());
+						}
+					break;
+			}
+			var success = dialog.ShowDialog();
+			if (success == null || success == false)
+				return;
+
+			await Helpers.CacheImage.SaveImageAsync(FeaturedPost.Data.NonCachedURL, dialog.FileName);
 		}
 
 		private static async Task CacheImageLocally(RedditPost post)
@@ -380,16 +416,17 @@ namespace RedditVisualizer.ViewModels
 			await CacheImageLocally(FeaturedPost);
 
 			if (FeaturedPost != null)
+			{
 				Window.GoToButton.IsEnabled = true;
+				Window.OpenLinkButton.IsEnabled = FeaturedPost.PostType != RedditPost.URLType.SelfText;
+				Window.SaveImageButton.IsEnabled = FeaturedPost.PostType == RedditPost.URLType.Image || FeaturedPost.PostType == RedditPost.URLType.GIF;
+			}
 			else
-				Window.GoToButton.IsEnabled = false;
+				Window.GoToButton.IsEnabled = Window.OpenLinkButton.IsEnabled = Window.SaveImageButton.IsEnabled = false;
 
-			if (Posts.IndexOf(FeaturedPost) < 1)
-				Window.PreviousImageButton.IsEnabled = false;
-			else
-				Window.PreviousImageButton.IsEnabled = true;
+			Window.PreviousImageButton.IsEnabled = Posts.IndexOf(FeaturedPost) >= 1;
 
-			if (Posts.IndexOf(FeaturedPost) >= Posts.Count - 1 && _loading == true)
+			if (Posts.IndexOf(FeaturedPost) >= Posts.Count - 1 && _loading)
 			{
 				Window.NextImageButton.IsEnabled = false;
 				Window.NextImageButton.Content = "Fetching More Posts...";
