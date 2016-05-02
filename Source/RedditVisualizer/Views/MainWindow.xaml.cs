@@ -170,12 +170,16 @@ namespace RedditVisualizer.Views
 				{
 					case System.Windows.Input.Key.Left:
 						e.Handled = true;
+						if (ViewModel.FeaturedPost == null || ViewModel.Posts.IndexOf(ViewModel.FeaturedPost) < 1)
+							break;
 						ViewModel.GoToPreviousPost();
 						PreviousImageButton.Focus();
 						break;
 
 					case System.Windows.Input.Key.Right:
 						e.Handled = true;
+						if (ViewModel.FeaturedPost == null)
+							break;
 						ViewModel.GoToNextPost();
 						NextImageButton.Focus();
 						break;
@@ -205,6 +209,28 @@ namespace RedditVisualizer.Views
 				LeftArrowImage.Opacity = 0.4;
 				RightArrowImage.Opacity = 0.4;
 			}
+		}
+
+		private void PreviousImageButton_OnGotFocus(object sender, RoutedEventArgs e)
+		{
+			LeftArrowImage.Opacity = 0.8;
+			RightArrowImage.Opacity = 0.4;
+		}
+
+		private void PreviousImageButton_OnLostFocus(object sender, RoutedEventArgs e)
+		{
+			LeftArrowImage.Opacity = 0.4;
+		}
+
+		private void NextImageButton_OnGotFocus(object sender, RoutedEventArgs e)
+		{
+			LeftArrowImage.Opacity = 0.4;
+			RightArrowImage.Opacity = 0.8;
+		}
+
+		private void NextImageButton_OnLostFocus(object sender, RoutedEventArgs e)
+		{
+			RightArrowImage.Opacity = 0.4;
 		}
 	}
 }

@@ -46,12 +46,6 @@ namespace RedditVisualizer.Models
 
 			public int Score { get; set; }
 
-			[JsonProperty("ups")]
-			public int UpVotes { get; set; }
-
-			[JsonProperty("downs")]
-			public int DownVotes { get; set; }
-
 			[JsonProperty("num_comments")]
 			public int CommentCount { get; set; }
 		}

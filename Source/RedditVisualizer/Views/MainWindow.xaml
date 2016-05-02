@@ -4,6 +4,15 @@
 		xmlns:elements="clr-namespace:RedditVisualizer.Views.Elements"
 		xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="Reddit Visualizer" MinHeight="350" MinWidth="525" KeyDown="Window_KeyDown" MouseMove="Window_MouseMove" Height="535" Width="768">
+	<Window.Resources>
+		<Style x:Key="NoFocusStyle">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate />
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
 	<Grid Margin="10,10,10,10">
 		<Grid>
 			<Grid.RowDefinitions>
@@ -98,10 +107,8 @@
 						<Line Y1="5" Y2="20" Stroke="Black"/>
 						<TextBlock Margin="4">
 							<TextBlock.Text>
-								<MultiBinding StringFormat="Score: {0} (Ups: {1}, Downs: {2})" FallbackValue="Score: null (Ups: null, Downs: null)">
+								<MultiBinding StringFormat="Score: {0}" FallbackValue="Score: null">
 									<Binding Path="FeaturedPost.Data.Score" />
-									<Binding Path="FeaturedPost.Data.UpVotes" />
-									<Binding Path="FeaturedPost.Data.DownVotes" />
 								</MultiBinding>
 							</TextBlock.Text>
 						</TextBlock>
@@ -139,8 +146,8 @@
 			</Grid.ColumnDefinitions>
 			<Image x:Name="LeftArrowImage" Grid.Row="1" Grid.Column="0" Opacity="0.3" Source="/Reddit Visualizer;component/Media/LeftArrow.png" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" />
 			<Image x:Name="RightArrowImage" Grid.Row="1" Grid.Column="1" Opacity="0.3" Source="/Reddit Visualizer;component/Media/RightArrow.png" Height="50" HorizontalAlignment="Right" VerticalAlignment="Center" />
-			<Button x:Name="PreviousImageButton" Grid.Row="1" Grid.Column="0" Opacity="0" Click="PreviousImageButton_Click"  ContextMenuService.ShowOnDisabled="True"/>
-			<Button x:Name="NextImageButton" Grid.Row="1" Grid.Column="1" Opacity="0" Click="NextImageButton_Click" ContextMenuService.ShowOnDisabled="True"/>
+			<Button x:Name="PreviousImageButton" Grid.Row="1" Grid.Column="0" Opacity="0" Click="PreviousImageButton_Click" FocusVisualStyle="{DynamicResource NoFocusStyle}" ContextMenuService.ShowOnDisabled="True" GotFocus="PreviousImageButton_OnGotFocus" LostFocus="PreviousImageButton_OnLostFocus"/>
+			<Button x:Name="NextImageButton" Grid.Row="1" Grid.Column="1" Opacity="0" Click="NextImageButton_Click" FocusVisualStyle="{DynamicResource NoFocusStyle}" ContextMenuService.ShowOnDisabled="True" GotFocus="NextImageButton_OnGotFocus" LostFocus="NextImageButton_OnLostFocus"/>
 		</Grid>
 	</Grid>
 </Window>
