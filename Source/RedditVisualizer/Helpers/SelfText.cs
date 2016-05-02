@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace RedditVisualizer.Helpers
 {
-	class SelfText
+	public static class SelfText
 	{
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialSelfTextAsync(string subreddit)
 		{

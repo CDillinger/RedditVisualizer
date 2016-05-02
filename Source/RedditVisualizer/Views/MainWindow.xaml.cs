@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Diagnostics;
-using RedditVisualizer.Helpers;
-using RedditVisualizer.Models;
-using RedditVisualizer.ViewModels;
-using System.Windows.Data;
 using System.Windows.Input;
+using RedditVisualizer.ViewModels;
 
 namespace RedditVisualizer.Views
 {
@@ -32,7 +27,7 @@ namespace RedditVisualizer.Views
 			}
 			catch (Exception ex)
 			{
-				System.Windows.MessageBox.Show("An Exception Has Occurred!\n\nException Message:\n" + ex.Message);
+				MessageBox.Show("An Exception Has Occurred!\n\nException Message:\n" + ex.Message);
 			}
 		}
 
@@ -74,75 +69,75 @@ namespace RedditVisualizer.Views
 				{
 					default:
 					case 0:
-						URLSuffixTextBox.Text = "r/all";
+						URLSuffixTextBox.Text = "all";
 						break;
 
 					case 1:
-						URLSuffixTextBox.Text = "r/animalsbeingjerks";
+						URLSuffixTextBox.Text = "animalsbeingjerks";
 						break;
 
 					case 2:
-						URLSuffixTextBox.Text = "r/carporn";
+						URLSuffixTextBox.Text = "carporn";
 						break;
 
 					case 3:
-						URLSuffixTextBox.Text = "r/cats";
+						URLSuffixTextBox.Text = "cats";
 						break;
 
 					case 4:
-						URLSuffixTextBox.Text = "r/comics";
+						URLSuffixTextBox.Text = "comics";
 						break;
 
 					case 5:
-						URLSuffixTextBox.Text = "r/corgi";
+						URLSuffixTextBox.Text = "corgi";
 						break;
 
 					case 6:
-						URLSuffixTextBox.Text = "r/aww";
+						URLSuffixTextBox.Text = "aww";
 						break;
 
 					case 7:
-						URLSuffixTextBox.Text = "r/dogpictures";
+						URLSuffixTextBox.Text = "dogpictures";
 						break;
 
 					case 8:
-						URLSuffixTextBox.Text = "r/food";
+						URLSuffixTextBox.Text = "food";
 						break;
 
 					case 9:
-						URLSuffixTextBox.Text = "r/foodporn";
+						URLSuffixTextBox.Text = "foodporn";
 						break;
 
 					case 10:
-						URLSuffixTextBox.Text = "r/funny";
+						URLSuffixTextBox.Text = "funny";
 						break;
 
 					case 11:
-						URLSuffixTextBox.Text = "r/historyporn";
+						URLSuffixTextBox.Text = "historyporn";
 						break;
 
 					case 12:
-						URLSuffixTextBox.Text = "r/jokes";
+						URLSuffixTextBox.Text = "jokes";
 						break;
 
 					case 13:
-						URLSuffixTextBox.Text = "r/militaryporn";
+						URLSuffixTextBox.Text = "militaryporn";
 						break;
 
 					case 14:
-						URLSuffixTextBox.Text = "r/pics";
+						URLSuffixTextBox.Text = "pics";
 						break;
 
 					case 15:
-						URLSuffixTextBox.Text = "r/tattoos";
+						URLSuffixTextBox.Text = "tattoos";
 						break;
 
 					case 16:
-						URLSuffixTextBox.Text = "r/wallpapers";
+						URLSuffixTextBox.Text = "wallpapers";
 						break;
 
 					case 17:
-						URLSuffixTextBox.Text = "r/waterporn";
+						URLSuffixTextBox.Text = "waterporn";
 						break;
 				}
 			}
@@ -150,25 +145,25 @@ namespace RedditVisualizer.Views
 
 		private void CustomURLCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
-			PredefinedSubsComboBox.Visibility = System.Windows.Visibility.Collapsed;
-			URLTextBlock.Visibility = System.Windows.Visibility.Visible;
-			URLSuffixTextBox.Visibility = System.Windows.Visibility.Visible;
+			PredefinedSubsComboBox.Visibility = Visibility.Collapsed;
+			URLTextBlock.Visibility = Visibility.Visible;
+			URLSuffixTextBox.Visibility = Visibility.Visible;
 		}
 
 		private void CustomURLCheckBox_Unchecked(object sender, RoutedEventArgs e)
 		{
-			PredefinedSubsComboBox.Visibility = System.Windows.Visibility.Visible;
-			URLTextBlock.Visibility = System.Windows.Visibility.Collapsed;
-			URLSuffixTextBox.Visibility = System.Windows.Visibility.Collapsed;
+			PredefinedSubsComboBox.Visibility = Visibility.Visible;
+			URLTextBlock.Visibility = Visibility.Collapsed;
+			URLSuffixTextBox.Visibility = Visibility.Collapsed;
 		}
 
-		private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (!PostTypeComboBox.IsFocused && !PredefinedSubsComboBox.IsFocused && !SortComboBox.IsFocused)
 			{
 				switch (e.Key)
 				{
-					case System.Windows.Input.Key.Left:
+					case Key.Left:
 						e.Handled = true;
 						if (ViewModel.FeaturedPost == null || ViewModel.Posts.IndexOf(ViewModel.FeaturedPost) < 1)
 							break;
@@ -176,7 +171,7 @@ namespace RedditVisualizer.Views
 						PreviousImageButton.Focus();
 						break;
 
-					case System.Windows.Input.Key.Right:
+					case Key.Right:
 						e.Handled = true;
 						if (ViewModel.FeaturedPost == null)
 							break;

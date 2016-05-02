@@ -7,56 +7,56 @@ using Newtonsoft.Json;
 
 namespace RedditVisualizer.Helpers
 {
-	class Posts
+	public static class Posts
 	{
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialPostsAsync(string subreddit)
 		{
-			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/controversial.json");
+			return await FindPostsAsync("http://www.reddit.com/r/" + subreddit + "/controversial.json");
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindControversialPostsAsync(string subreddit, int countViewed, string after)
 		{
-			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/controversial.json?count={1}&after={2}", subreddit, countViewed, after));
+			return await FindPostsAsync(string.Format("http://www.reddit.com/r/{0}/controversial.json?count={1}&after={2}", subreddit, countViewed, after));
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindHotPostsAsync(string subreddit)
 		{
-			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/hot.json");
+			return await FindPostsAsync("http://www.reddit.com/r/" + subreddit + "/hot.json");
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindHotPostsAsync(string subreddit, int countViewed, string after)
 		{
-			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/hot.json?count={1}&after={2}", subreddit, countViewed, after));
+			return await FindPostsAsync(string.Format("http://www.reddit.com/r/{0}/hot.json?count={1}&after={2}", subreddit, countViewed, after));
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindNewPostsAsync(string subreddit)
 		{
-			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/new.json");
+			return await FindPostsAsync("http://www.reddit.com/r/" + subreddit + "/new.json");
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindNewPostsAsync(string subreddit, int countViewed, string after)
 		{
-			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/new.json?count={1}&after={2}", subreddit, countViewed, after));
+			return await FindPostsAsync(string.Format("http://www.reddit.com/r/{0}/new.json?count={1}&after={2}", subreddit, countViewed, after));
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindRisingPostsAsync(string subreddit)
 		{
-			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/rising.json");
+			return await FindPostsAsync("http://www.reddit.com/r/" + subreddit + "/rising.json");
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindRisingPostsAsync(string subreddit, int countViewed, string after)
 		{
-			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/rising.json?count={1}&after={2}", subreddit, countViewed, after));
+			return await FindPostsAsync(string.Format("http://www.reddit.com/r/{0}/rising.json?count={1}&after={2}", subreddit, countViewed, after));
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindTopPostsAsync(string subreddit)
 		{
-			return await FindPostsAsync("http://www.reddit.com/" + subreddit + "/top.json");
+			return await FindPostsAsync("http://www.reddit.com/r/" + subreddit + "/top.json");
 		}
 
 		public static async Task<Tuple<List<RedditPost>, string, string>> FindTopPostsAsync(string subreddit, int countViewed, string after)
 		{
-			return await FindPostsAsync(string.Format("http://www.reddit.com/{0}/top.json?count={1}&after={2}", subreddit, countViewed, after));
+			return await FindPostsAsync(string.Format("http://www.reddit.com/r/{0}/top.json?count={1}&after={2}", subreddit, countViewed, after));
 		}
 
 		private static async Task<Tuple<List<RedditPost>, string, string>> FindPostsAsync(string url)

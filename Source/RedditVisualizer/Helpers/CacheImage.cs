@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RedditVisualizer.Helpers
 {
-	class CacheImage
+	public static class CacheImage
 	{
 		public static async Task<string> CacheImageAsync(string url)
 		{

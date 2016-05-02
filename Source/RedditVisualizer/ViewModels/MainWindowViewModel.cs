@@ -389,13 +389,13 @@ namespace RedditVisualizer.ViewModels
 
 		public async void GoToNextPost()
 		{
-			if (Posts.IndexOf(FeaturedPost) >= Posts.Count - 6 && _loading == false)
+			if (Posts.IndexOf(FeaturedPost) >= Posts.Count - 6 && !_loading)
 			{
 				_loading = true;
 				await LoadMorePostsAsync(Suffix, Sort, Type);
 			}
 
-			if (Posts.IndexOf(FeaturedPost) >= Posts.Count - 1 && _loading == false)
+			if (Posts.IndexOf(FeaturedPost) >= Posts.Count - 1 && !_loading)
 			{
 				Window.NextImageButton.IsEnabled = false;
 				Window.NextImageButton.Content = "Fetching Posts...";
@@ -404,7 +404,8 @@ namespace RedditVisualizer.ViewModels
 			}
 			else
 			{
-				FeaturedPost = Posts[Posts.IndexOf(FeaturedPost) + 1];
+				if (!_loading)
+					FeaturedPost = Posts[Posts.IndexOf(FeaturedPost) + 1];
 			}
 
 			Window.NextImageButton.Content = "Next";

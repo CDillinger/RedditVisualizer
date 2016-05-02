@@ -1,6 +1,6 @@
 ﻿namespace RedditVisualizer.Helpers
 {
-	class StringConvert
+	public static class StringConvert
 	{
 		public static string XmlStringToNormal(string xmlString)
 		{

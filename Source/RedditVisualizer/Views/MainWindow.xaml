@@ -40,27 +40,27 @@
 						<ColumnDefinition Width="100"/>
 					</Grid.ColumnDefinitions>
 					<ComboBox x:Name="PredefinedSubsComboBox" Grid.ColumnSpan="3" Grid.Row="0" Height="23" SelectedIndex="0" VerticalAlignment="Top" SelectionChanged="PredefinedSubsComboBox_SelectionChanged">
-						<ComboBoxItem Content="All (r/all)"/>
-						<ComboBoxItem Content="Animals Being Jerks (r/animalsbeingjerks)"/>
-						<ComboBoxItem Content="Cars (r/carporn)"/>
-						<ComboBoxItem Content="Cats (r/cats)"/>
-						<ComboBoxItem Content="Comics (r/comics)"/>
-						<ComboBoxItem Content="Corgis (r/corgi)"/>
-						<ComboBoxItem Content="Cute (r/aww)"/>
-						<ComboBoxItem Content="Dogs (r/dogpictures)"/>
-						<ComboBoxItem Content="Food (r/food)"/>
-						<ComboBoxItem Content="More Food (r/foodporn)"/>
-						<ComboBoxItem Content="Funny (r/funny)"/>
-						<ComboBoxItem Content="History (r/historyporn)"/>
-						<ComboBoxItem Content="Jokes (r/jokes)"/>
-						<ComboBoxItem Content="Military (r/militaryporn)"/>
-						<ComboBoxItem Content="Pictures (r/pics)"/>
-						<ComboBoxItem Content="Tattoos (r/tattoos)"/>
-						<ComboBoxItem Content="Wallpapers (r/wallpapers)"/>
-						<ComboBoxItem Content="Water (r/waterporn)"/>
+						<ComboBoxItem Content="All (all)"/>
+						<ComboBoxItem Content="Animals Being Jerks (animalsbeingjerks)"/>
+						<ComboBoxItem Content="Cars (carporn)"/>
+						<ComboBoxItem Content="Cats (cats)"/>
+						<ComboBoxItem Content="Comics (comics)"/>
+						<ComboBoxItem Content="Corgis (corgi)"/>
+						<ComboBoxItem Content="Cute (aww)"/>
+						<ComboBoxItem Content="Dogs (dogpictures)"/>
+						<ComboBoxItem Content="Food (food)"/>
+						<ComboBoxItem Content="More Food (foodporn)"/>
+						<ComboBoxItem Content="Funny (funny)"/>
+						<ComboBoxItem Content="History (historyporn)"/>
+						<ComboBoxItem Content="Jokes (jokes)"/>
+						<ComboBoxItem Content="Military (militaryporn)"/>
+						<ComboBoxItem Content="Pictures (pics)"/>
+						<ComboBoxItem Content="Tattoos (tattoos)"/>
+						<ComboBoxItem Content="Wallpapers (wallpapers)"/>
+						<ComboBoxItem Content="Water (waterporn)"/>
 					</ComboBox>
 					<TextBlock x:Name="URLTextBlock" Grid.Column="0" Grid.Row="0" Text="URL Suffix:" Padding="0,3,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
-					<TextBox x:Name="URLSuffixTextBox" Grid.Column="2" Grid.Row="0" Text="r/all" Height="23" VerticalAlignment="Top" Visibility="Collapsed"/>
+					<TextBox x:Name="URLSuffixTextBox" Grid.Column="2" Grid.Row="0" Text="all" Height="23" VerticalAlignment="Top" Visibility="Collapsed"/>
 					<CheckBox x:Name="CustomURLCheckBox"  Grid.Column="4" Grid.Row="0" Content="Custom SubReddit" IsChecked="False" VerticalAlignment="Top" Margin="0,3" Checked="CustomURLCheckBox_Checked" Unchecked="CustomURLCheckBox_Unchecked"/>
 					<ComboBox x:Name="SortComboBox" Grid.Column="6" Grid.Row="0" Height="23" SelectedIndex="0" VerticalAlignment="Top">
 						<ComboBoxItem Content="Hot"/>
